@@ -1,8 +1,8 @@
 import * as mongodb from "mongodb";
-import { Employee } from "./employee";
+import { Landlord } from "./landlord";
 
 export const collections: {
-    employees?: mongodb.Collection<Employee>;
+    landlords?: mongodb.Collection<Landlord>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -12,33 +12,38 @@ export async function connectToDatabase(uri: string) {
     const db = client.db("meanStackExample");
     await applySchemaValidation(db);
 
-    const employeesCollection = db.collection<Employee>("employees");
-    collections.employees = employeesCollection;
+    const landlordsCollection = db.collection<Landlord>("landlords");
+    collections.landlords = landlordsCollection;
 }
 
-// Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
+// Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Landlord model, even if added elsewhere.
 // For more information about schema validation, see this blog series: https://www.mongodb.com/blog/post/json-schema-validation--locking-down-your-model-the-smart-way
 async function applySchemaValidation(db: mongodb.Db) {
     const jsonSchema = {
         $jsonSchema: {
             bsonType: "object",
-            required: ["name", "position", "level"],
+            required: ["landlordName", "landlordAddress", "landlordThumb", "landlordTextReview"],
             additionalProperties: false,
             properties: {
                 _id: {},
-                name: {
+                landlordName: {
                     bsonType: "string",
-                    description: "'name' is required and is a string",
+                    description: "'Landlord Name' is required and is a string",
                 },
-                position: {
+                landlordAddress: {
                     bsonType: "string",
-                    description: "'position' is required and is a string",
-                    minLength: 5
+                    description: "'Property Address' is required and is a string",
+                    minLength: 5,
                 },
-                level: {
+                landlordThumb: {
                     bsonType: "string",
-                    description: "'level' is required and is one of 'junior', 'mid', or 'senior'",
-                    enum: ["junior", "mid", "senior"],
+                    description: "'Thumbs Up' or 'Thumbs Down' is required",
+                    enum: ["up", "down"],
+                },
+                landlordTextReview: {
+                    bsonType: "string",
+                    description: "'Review' is required and is a string",
+                    minLength: 10,
                 },
             },
         },
@@ -46,11 +51,11 @@ async function applySchemaValidation(db: mongodb.Db) {
 
     // Try applying the modification to the collection, if the collection doesn't exist, create it 
    await db.command({
-        collMod: "employees",
+        collMod: "landlords",
         validator: jsonSchema
     }).catch(async (error: mongodb.MongoServerError) => {
         if (error.codeName === "NamespaceNotFound") {
-            await db.createCollection("employees", {validator: jsonSchema});
+            await db.createCollection("landlords", {validator: jsonSchema});
         }
     });
 }

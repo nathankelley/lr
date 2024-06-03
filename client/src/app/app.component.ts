@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { EmployeesListComponent } from './employees-list/employees-list.component';
+import { LandlordsListComponent } from './landlords-list/landlords-list.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, EmployeesListComponent, MatToolbarModule],
+  imports: [RouterOutlet, LandlordsListComponent, MatToolbarModule],
   styles: [
     `
       main {
@@ -18,7 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
   template: `
     <mat-toolbar>
-      <span>Employees Management System</span>
+      <span>Landlord Management System</span>
     </mat-toolbar>
     <main>
       <router-outlet></router-outlet>
