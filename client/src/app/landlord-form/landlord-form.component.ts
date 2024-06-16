@@ -38,10 +38,18 @@ import { Landlord } from '../landlord';
       (submit)="submitForm()"
     >
       <mat-form-field>
-        <mat-label>Landlord Name</mat-label>
-        <input matInput placeholder="Landlord Name" formControlName="landlordName" required />
-        @if (landlordName.invalid) {
-        <mat-error>Landlord Name must be at least 3 characters long.</mat-error>
+        <mat-label>Landlord First Name</mat-label>
+        <input matInput placeholder="Landlord First Name" formControlName="landlordFirstName" required />
+        @if (landlordFirstName.invalid) {
+        <mat-error>Landlord First Name must be at least 3 characters long.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Landlord Last Name</mat-label>
+        <input matInput placeholder="Landlord Last Name" formControlName="landlordLastName" required />
+        @if (landlordLastName.invalid) {
+        <mat-error>Landlord Last Name must be at least 3 characters long.</mat-error>
         }
       </mat-form-field>
 
@@ -101,7 +109,8 @@ export class LandlordFormComponent {
   formSubmitted = new EventEmitter<Landlord>();
 
   landlordForm = this.formBuilder.group({
-    landlordName: ['', [Validators.required, Validators.minLength(3)]],
+    landlordFirstName: ['', [Validators.required, Validators.minLength(3)]],
+    landlordLastName: ['', [Validators.required, Validators.minLength(3)]],
     landlordAddress: ['', [Validators.required, Validators.minLength(5)]],
     landlordThumb: ['up', [Validators.required]],
     landlordTextReview: ['', [Validators.required, Validators.minLength(10)]],
@@ -110,7 +119,8 @@ export class LandlordFormComponent {
   constructor(private formBuilder: FormBuilder) {
     effect(() => {
       this.landlordForm.setValue({
-        landlordName: this.initialState()?.landlordName || '',
+        landlordFirstName: this.initialState()?.landlordFirstName || '',
+        landlordLastName: this.initialState()?.landlordLastName || '',
         landlordAddress: this.initialState()?.landlordAddress || '',
         landlordThumb: this.initialState()?.landlordThumb || 'up',
         landlordTextReview: this.initialState()?.landlordTextReview || ''
@@ -118,8 +128,11 @@ export class LandlordFormComponent {
     });
   }
 
-  get landlordName() {
-    return this.landlordForm.get('landlordName')!;
+  get landlordFirstName() {
+    return this.landlordForm.get('landlordFirstName')!;
+  }
+  get landlordLastName() {
+    return this.landlordForm.get('landlordLastName')!;
   }
   get landlordAddress() {
     return this.landlordForm.get('landlordAddress')!;

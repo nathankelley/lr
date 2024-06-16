@@ -22,13 +22,17 @@ async function applySchemaValidation(db: mongodb.Db) {
     const jsonSchema = {
         $jsonSchema: {
             bsonType: "object",
-            required: ["landlordName", "landlordAddress", "landlordThumb", "landlordTextReview"],
+            required: ["landlordFirstName", "LandlordLastName", "landlordAddress", "landlordThumb", "landlordTextReview"],
             additionalProperties: false,
             properties: {
                 _id: {},
-                landlordName: {
+                landlordFirstName: {
                     bsonType: "string",
-                    description: "'Landlord Name' is required and is a string",
+                    description: "'Landlord First Name' is required and is a string",
+                },
+                landlordLastName: {
+                    bsonType: "string",
+                    description: "'Landlord Last Name' is required and is a string",
                 },
                 landlordAddress: {
                     bsonType: "string",

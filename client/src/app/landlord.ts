@@ -1,5 +1,6 @@
 export interface Landlord {
-  landlordName: string;
+  landlordFirstName: string;
+  landlordLastName: string;
   landlordAddress: string; // string for now, eventually make this an Object
   landlordThumb: "Thumbs Up" | "Thumbs Down";
   landlordTextReview: string;

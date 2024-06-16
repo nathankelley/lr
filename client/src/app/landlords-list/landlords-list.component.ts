@@ -28,9 +28,13 @@ import { MatCardModule } from '@angular/material/card';
       </mat-card-header>
       <mat-card-content>
         <table mat-table [dataSource]="landlords$()">
-          <ng-container matColumnDef="col-landlordName">
-            <th mat-header-cell *matHeaderCellDef>Landlord Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.landlordName }}</td>
+          <ng-container matColumnDef="col-landlordFirstName">
+            <th mat-header-cell *matHeaderCellDef>Landlord First Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.landlordFirstName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="col-landlordLastName">
+            <th mat-header-cell *matHeaderCellDef>Landlord Last Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.landlordLastName }}</td>
           </ng-container>
           <ng-container matColumnDef="col-landlordAddress">
             <th mat-header-cell *matHeaderCellDef>Landlord Address</th>
@@ -75,7 +79,8 @@ import { MatCardModule } from '@angular/material/card';
 export class LandlordsListComponent implements OnInit {
   landlords$ = {} as WritableSignal<Landlord[]>;
   displayedColumns: string[] = [
-    'col-landlordName',
+    'col-landlordFirstName',
+    'col-landlordLastName',
     'col-landlordAddress',
     'col-landlordThumb',
     'col-landlordTextReview',

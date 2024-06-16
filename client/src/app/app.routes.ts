@@ -6,5 +6,5 @@ import { EditLandlordComponent } from './edit-landlord/edit-landlord.component';
 export const routes: Routes = [
   { path: '', component: LandlordsListComponent, title: 'Landlords List' },
   { path: 'new', component: AddLandlordComponent },
-  { path: 'edit/:id', component: LandlordsListComponent },
+  { path: 'edit/:id', component: EditLandlordComponent },
 ];
